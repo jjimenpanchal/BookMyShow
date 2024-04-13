@@ -1,0 +1,225 @@
+Design Book My Show
+https://airlock-on-edge.woolf.university/?url=https%3A%2F%2Fscaler-production-new.s3.ap-southeast-1.amazonaws.com%2Fattachments%2Fattachments%2F000%2F039%2F517%2Foriginal%2FDesign_BMS_2.pdf%3FX-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAIDNNIRGHAQUQRWYA%252F20240406%252Fap-southeast-1%252Fs3%252Faws4_request%26X-Amz-Date%3D20240406T143604Z%26X-Amz-Expires%3D561600%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D00627ed48945721c00f5e81d77a97e85a810e42a6b52f432d2750655d51f091f&resourceId=99f24495-2233-419a-9269-7eb70783ae14&studentId=c1f9d1cb-d7d6-468e-be65-b49a89068e3a&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMxZjlkMWNiLWQ3ZDYtNDY4ZS1iZTY1LWI0OWE4OTA2OGUzYSIsImlzcyI6InVybjpXb29sZlVuaXZlcnNpdHk6c2VydmVyL3NlcnZpY2UvYWNjZXNzIiwiaXNWZXJpZmllZCI6dHJ1ZSwia2luZCI6Im9hdXRoIiwib3JnIjp7Imdyb3VwcyI6W10sImlkIjoiOWIxN2Y1Y2UtMTA3OC00ZmRmLWFlYzAtMDJiZjRlY2ZiMGE2In0sInNjb3BlIjoiKiJ9.dPTgwKmjsKXFc9ql3zQmVFcFBrt9r5ytS9FWdzyB-Sw
+https://airlock-on-edge.woolf.university/?url=https%3A%2F%2Fscaler-production-new.s3.ap-southeast-1.amazonaws.com%2Fattachments%2Fattachments%2F000%2F040%2F651%2Foriginal%2FBMS_Code.pdf%3FX-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAIDNNIRGHAQUQRWYA%252F20240406%252Fap-southeast-1%252Fs3%252Faws4_request%26X-Amz-Date%3D20240406T163814Z%26X-Amz-Expires%3D561600%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Da1f73a39fcd15da44fe3b22f4285ab7d870153807e2b4e30c1344caef1a836be&resourceId=78f65f20-261b-461d-81be-4c6fcaf39178&studentId=c1f9d1cb-d7d6-468e-be65-b49a89068e3a&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMxZjlkMWNiLWQ3ZDYtNDY4ZS1iZTY1LWI0OWE4OTA2OGUzYSIsImlzcyI6InVybjpXb29sZlVuaXZlcnNpdHk6c2VydmVyL3NlcnZpY2UvYWNjZXNzIiwiaXNWZXJpZmllZCI6dHJ1ZSwia2luZCI6Im9hdXRoIiwib3JnIjp7Imdyb3VwcyI6W10sImlkIjoiOWIxN2Y1Y2UtMTA3OC00ZmRmLWFlYzAtMDJiZjRlY2ZiMGE2In0sInNjb3BlIjoiKiJ9.dPTgwKmjsKXFc9ql3zQmVFcFBrt9r5ytS9FWdzyB-Sw
+https://www.scaler.com/academy/mentee-dashboard/class/41463/session
+https://github.com/Naman-Bhalla/bookMyShowJuly2022/blob/master/src/main/java/com/scaler/bookmyshow/models/Actor.java
+
+1. Align with interviewers.
+    Book my show is a ticket booking platform. we can book tickets for movies, events, plays, sports etc.
+
+2. Requirements.
+
+    . There will be multiple cities, each city will have multiple theatres.
+    . each theatre can have multiple screens.
+    . each screen will have some features 2D/ 3D/ Dolby
+    . each screen will have seats.
+    . seat can be of different type(Vip, premium, gold, silver, platinum).
+    . multiple shows can be there inside 1 theatre in one day
+    . each show will have one movie running at a time.
+    . each show will also have some properties.
+    . each movie will have some cast, genre, duration.
+    . search a movie
+    . payment => partial payment (online + cash)
+    . handling all payment related things are outsourced
+    . ticket
+    . support cancellation
+    . Do we have to implement a theatre aggregator or do we need to maintain
+        our own DB.
+    . Only one person should be able to book a particular seat for a particular show
+    . reserve a seat for upto 10 minutes
+
+    . User should be able to login.
+    . user should be able to see all shows.
+    . user should be able to select a show.
+    . user should be able to see All the seats for that show.
+    . user should be able to select the available seat.
+    . user will pay for the seat;
+    . user will get a ticket once payment is confirmed.
+    . The selected seat will marked as booked once payment is done.
+
+
+class diagram->
+
+city
+    - id
+    - name
+    - pincode
+
+Theatre
+    - id
+    - name
+    - city
+    - address
+    - List<Screen>
+
+Screen
+    - id
+    - name
+    - List<ScreenFeatures>
+    - List<Seat>
+
+ScreenFeatures
+    2D,
+    3D,
+    Dolby
+
+seat
+    - id
+    - row
+    - col
+    - name
+    - seatType
+
+seatType
+    VIP,
+    PREMIUM,
+    GOLD,
+    SILVER,
+    PLATINUM
+
+Show
+    - id
+    - screen
+    - startTime
+    - endTime
+    - duration
+    - movie
+    - date
+
+Movie
+     - id
+     - List<Actor>
+     - List<genre>
+     - List<feature>
+     - duration
+     - name
+
+showSeat
+    - id
+    - show
+    - seat
+    - status
+
+seatStatus
+    AVAILABLE,
+    OCCUPIED.
+
+Genre
+    CRIME,
+    LOVE,
+    THRILLER,
+    COMEDY,
+    DRAMA
+
+showSeatTypePrice
+    - id
+    - show
+    - seatType
+    - price
+
+Payment
+    - id
+    - amount
+    - status
+    - transactionId
+    - Ticket
+    - Mode
+
+status
+    SUCCESS,
+    PENDING,
+    FAILED,
+    REFUND
+
+mode
+    CC,
+    DC,
+    UPI,
+    NETBANKING
+
+Ticket
+    - id
+    - show
+    - time
+    - List<ShowSeat>
+    - status
+    - List<Payment>
+
+
+Design Schema:-
+
+city
+    id | name | pincode
+
+city : theatre
+1    :  M
+
+Theatre
+    id | name | city_id | address
+
+Theatre : Screen
+ 1 : M
+
+
+Screen
+    id | name | theatre_id
+
+
+ScreenFeatures
+    id | value
+
+
+seat : seatType
+M : 1
+seat
+    id | row | col | name | seatType_id
+
+seatType
+    id | value
+
+show : screen
+M : 1
+
+show : movie
+M : 1
+Show
+    id | screen_ id | startTime | endTime | duration | movie_id | date
+
+Movie : Actor
+1 : M
+M   : 1
+
+Movie
+     id | duration | name
+
+showSeat : show
+M : 1
+ShowSeat : seat
+M : 1
+showSeat
+    id | show_id | seat_id | seatStatus_id
+
+seatStatus
+    id | value
+
+Genre
+    id | value
+
+showSeatType
+    id | show_id | seatType_id | price
+
+Payment
+    id | amount | paymentStatus_id | transactionId | ticket_id | paymentMode_id
+
+paymentStatus
+    id | value
+
+
+paymentMode
+    id | value
+
+Ticket
+    id | show_id | time | amount
+
+showFeature
+    id | value
